@@ -376,12 +376,510 @@ body.light-mode .flip-card-back {
     background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%);
 }
 
-/* MODE NINJA 🥷 */
+/* ============================================
+   MODE NINJA 🥷 - Estètica japonesa autèntica
+   ============================================ */
 body.ninja-mode {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #2a0505 100%);
+    background: 
+        linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 50px,
+            rgba(255, 255, 255, 0.02) 50px,
+            rgba(255, 255, 255, 0.02) 51px
+        );
+    background-attachment: fixed;
 }
 
+/* Fum ninja animat */
 body.ninja-mode::before {
+    content: '';
+    position: fixed;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(128, 128, 128, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(128, 128, 128, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(128, 128, 128, 0.12) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+    animation: ninjaSmoke 20s ease-in-out infinite;
+}
+
+@keyframes ninjaSmoke {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.6;
+    }
+    33% {
+        transform: translate(-10%, 10%) rotate(120deg);
+        opacity: 0.8;
+    }
+    66% {
+        transform: translate(10%, -10%) rotate(240deg);
+        opacity: 0.7;
+    }
+}
+
+/* Shurikens flotants */
+body.ninja-mode::after {
+    content: '⭐';
+    position: fixed;
+    font-size: 2rem;
+    color: #888;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 1;
+    animation: shurikenFloat 15s linear infinite;
+}
+
+@keyframes shurikenFloat {
+    0% {
+        top: -10%;
+        left: 10%;
+        transform: rotate(0deg);
+    }
+    25% {
+        top: 30%;
+        left: 80%;
+        transform: rotate(360deg);
+    }
+    50% {
+        top: 70%;
+        left: 20%;
+        transform: rotate(720deg);
+    }
+    75% {
+        top: 40%;
+        left: 90%;
+        transform: rotate(1080deg);
+    }
+    100% {
+        top: 110%;
+        left: 50%;
+        transform: rotate(1440deg);
+    }
+}
+
+body.ninja-mode .title {
+    color: #c0c0c0;
+    text-shadow: 
+        2px 2px 0 #000,
+        4px 4px 0 #333,
+        0 0 20px rgba(192, 192, 192, 0.5);
+    font-family: 'Arial Black', sans-serif;
+    letter-spacing: 3px;
+}
+
+body.ninja-mode .title::before {
+    content: '忍者 ';
+    font-size: 0.6em;
+    opacity: 0.7;
+}
+
+body.ninja-mode h2 {
+    color: #a0a0a0;
+    text-shadow: 2px 2px 0 #000, 0 0 15px rgba(160, 160, 160, 0.5);
+    font-family: 'Arial', sans-serif;
+}
+
+body.ninja-mode h2::after {
+    content: ' 🥷';
+    font-size: 0.8em;
+}
+
+body.ninja-mode .btn-primary {
+    background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 2px solid #666;
+    color: #c0c0c0;
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+}
+
+body.ninja-mode .btn-primary::before {
+    content: '⚔️ ';
+}
+
+body.ninja-mode .btn-primary:hover {
+    box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(192, 192, 192, 0.3);
+    transform: translateY(-3px);
+    border-color: #888;
+}
+
+body.ninja-mode .btn-secondary {
+    background: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+    border: 2px solid #555;
+    color: #a0a0a0;
+}
+
+body.ninja-mode .mode-card {
+    background: linear-gradient(135deg, rgba(70, 70, 70, 0.3) 0%, rgba(40, 40, 40, 0.3) 100%);
+    border: 2px solid #666;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+body.ninja-mode .mode-card:hover {
+    box-shadow: 0 0 30px rgba(192, 192, 192, 0.4);
+    border-color: #888;
+    background: linear-gradient(135deg, rgba(80, 80, 80, 0.4) 0%, rgba(50, 50, 50, 0.4) 100%);
+}
+
+body.ninja-mode .mode-card h3 {
+    color: #c0c0c0;
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+}
+
+body.ninja-mode .flip-card-front {
+    background: 
+        linear-gradient(135deg, rgba(60, 60, 60, 0.5) 0%, rgba(30, 30, 30, 0.5) 100%),
+        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.03) 10px, rgba(255, 255, 255, 0.03) 20px);
+    border: 2px solid #666;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+}
+
+body.ninja-mode .flip-card-back {
+    background: 
+        linear-gradient(135deg, rgba(50, 50, 50, 0.6) 0%, rgba(20, 20, 20, 0.6) 100%),
+        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.03) 10px, rgba(255, 255, 255, 0.03) 20px);
+    border: 2px solid #666;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+}
+
+body.ninja-mode .card-icon {
+    filter: drop-shadow(0 0 10px rgba(192, 192, 192, 0.5));
+}
+
+body.ninja-mode .flip-card-front p::before {
+    content: '秘密 ';
+    opacity: 0.7;
+}
+
+body.ninja-mode .category-text {
+    color: #c0c0c0;
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+}
+
+body.ninja-mode .category-text::before {
+    content: '種類: ';
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+body.ninja-mode .word-text {
+    color: #fff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 2px 2px 0 #000;
+}
+
+body.ninja-mode #current-player-name {
+    background: linear-gradient(135deg, #c0c0c0 0%, #808080 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 10px rgba(192, 192, 192, 0.5));
+}
+
+body.ninja-mode .games-counter span {
+    color: #c0c0c0;
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+}
+
+body.ninja-mode .result-impostor {
+    color: #c0c0c0;
+    text-shadow: 0 0 30px rgba(192, 192, 192, 0.5);
+}
+
+body.ninja-mode .result-word {
+    color: #a0a0a0;
+    text-shadow: 0 0 20px rgba(160, 160, 160, 0.5);
+}
+
+body.ninja-mode .settings-container {
+    background: rgba(60, 60, 60, 0.3);
+    border: 1px solid #666;
+}
+
+body.ninja-mode #players-list li {
+    background: linear-gradient(135deg, rgba(70, 70, 70, 0.3) 0%, rgba(40, 40, 40, 0.3) 100%);
+    border: 1px solid #666;
+}
+
+body.ninja-mode .instructions {
+    background: rgba(60, 60, 60, 0.3);
+    border: 1px solid #666;
+}
+
+body.ninja-mode .instructions::before {
+    content: '指示: ';
+    font-weight: bold;
+}
+
+body.ninja-mode .result-card {
+    background: linear-gradient(135deg, rgba(70, 70, 70, 0.4) 0%, rgba(40, 40, 40, 0.4) 100%);
+    border: 2px solid #666;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+}
+
+body.ninja-mode .sound-toggle {
+    background: rgba(60, 60, 60, 0.5);
+    border: 1px solid #666;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+body.ninja-mode .particle {
+    background: rgba(192, 192, 192, 0.3);
+    box-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
+}
+
+/* ============================================
+   MODE NADAL 🎄 - Màgia nadalenca
+   ============================================ */
+body.christmas-mode {
+    background: 
+        linear-gradient(135deg, #0f4d2e 0%, #1a5c3a 50%, #0f4d2e 100%),
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 20px,
+            rgba(255, 255, 255, 0.05) 20px,
+            rgba(255, 255, 255, 0.05) 40px
+        );
+    background-attachment: fixed;
+}
+
+/* Neu que cau */
+body.christmas-mode::before {
+    content: '❄️ ❄️ ❄️ ❄️ ❄️ ❄️ ❄️ ❄️ ❄️ ❄️';
+    position: fixed;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    font-size: 2rem;
+    color: white;
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: 1;
+    animation: snowFall 10s linear infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes snowFall {
+    0% {
+        transform: translateY(-10vh) translateX(0);
+    }
+    100% {
+        transform: translateY(110vh) translateX(50px);
+    }
+}
+
+/* Llums de Nadal */
+body.christmas-mode::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #ff0000 0px,
+            #ff0000 20px,
+            #00ff00 20px,
+            #00ff00 40px,
+            #ffff00 40px,
+            #ffff00 60px,
+            #0000ff 60px,
+            #0000ff 80px
+        );
+    pointer-events: none;
+    z-index: 1000;
+    animation: christmasLights 2s linear infinite;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes christmasLights {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+body.christmas-mode .title {
+    color: #ff0000;
+    text-shadow: 
+        0 0 20px #ff0000,
+        0 0 40px #00ff00,
+        3px 3px 0 #fff;
+    animation: christmasGlow 2s ease-in-out infinite;
+}
+
+@keyframes christmasGlow {
+    0%, 100% {
+        text-shadow: 
+            0 0 20px #ff0000,
+            0 0 40px #00ff00,
+            3px 3px 0 #fff;
+    }
+    50% {
+        text-shadow: 
+            0 0 40px #00ff00,
+            0 0 60px #ff0000,
+            3px 3px 0 #fff;
+    }
+}
+
+body.christmas-mode .title::before {
+    content: '🎄 ';
+}
+
+body.christmas-mode .title::after {
+    content: ' 🎅';
+}
+
+body.christmas-mode h2 {
+    color: #ff0000;
+    text-shadow: 0 0 15px #ff0000, 2px 2px 0 #fff;
+}
+
+body.christmas-mode h2::after {
+    content: ' 🎁';
+}
+
+body.christmas-mode .btn-primary {
+    background: linear-gradient(135deg, #ff0000 0%, #00aa00 100%);
+    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6);
+    border: 3px solid #ffd700;
+    animation: christmasPulse 2s ease-in-out infinite;
+}
+
+@keyframes christmasPulse {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6);
+    }
+    50% {
+        box-shadow: 0 8px 25px rgba(0, 255, 0, 0.6);
+    }
+}
+
+body.christmas-mode .btn-primary::before {
+    content: '🎁 ';
+}
+
+body.christmas-mode .btn-secondary {
+    background: linear-gradient(135deg, #00aa00 0%, #006600 100%);
+    box-shadow: 0 8px 25px rgba(0, 170, 0, 0.6);
+    border: 3px solid #ffd700;
+}
+
+body.christmas-mode .btn-secondary::before {
+    content: '⭐ ';
+}
+
+body.christmas-mode .mode-card {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.3) 0%, rgba(0, 170, 0, 0.3) 100%);
+    border: 3px solid #ffd700;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+body.christmas-mode .mode-card:hover {
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+    transform: translateY(-5px) scale(1.02);
+}
+
+body.christmas-mode .flip-card-front {
+    background: 
+        linear-gradient(135deg, rgba(255, 0, 0, 0.4) 0%, rgba(0, 170, 0, 0.4) 100%),
+        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.1) 10px, rgba(255, 255, 255, 0.1) 20px);
+    border: 3px solid #ffd700;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+body.christmas-mode .flip-card-back {
+    background: 
+        linear-gradient(135deg, rgba(0, 170, 0, 0.5) 0%, rgba(255, 0, 0, 0.5) 100%),
+        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.1) 10px, rgba(255, 255, 255, 0.1) 20px);
+    border: 3px solid #ffd700;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+body.christmas-mode .category-text {
+    color: #ffd700;
+    text-shadow: 0 0 15px #ffd700;
+}
+
+body.christmas-mode .word-text {
+    color: #fff;
+    text-shadow: 0 0 20px #ff0000, 0 0 40px #00ff00;
+}
+
+body.christmas-mode .result-impostor {
+    color: #ff0000;
+    text-shadow: 0 0 30px #ff0000;
+}
+
+body.christmas-mode .result-word {
+    color: #00ff00;
+    text-shadow: 0 0 30px #00ff00;
+}
+
+body.christmas-mode .particle {
+    background: #fff;
+    box-shadow: 0 0 10px #fff;
+    border-radius: 50%;
+}
+
+body.christmas-mode .games-counter span {
+    color: #ffd700;
+    text-shadow: 0 0 15px #ffd700;
+}
+
+/* ============================================
+   MODE HACKER 💻 - Matrix style
+   ============================================ */
+body.hacker-mode {
+    background: #000;
+    font-family: 'Courier New', 'Consolas', monospace;
+}
+
+/* Efecte Matrix */
+body.hacker-mode::before {
+    content: '01010101 11001100 10101010 01110111 00110011 11110000 10011001 01010101 11001100 10101010';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #00ff00;
+    opacity: 0.1;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+    pointer-events: none;
+    z-index: 1;
+    animation: matrixRain 20s linear infinite;
+}
+
+@keyframes matrixRain {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+/* Línies de codi */
+body.hacker-mode::after {
     content: '';
     position: fixed;
     top: 0;
@@ -393,8 +891,8 @@ body.ninja-mode::before {
             0deg,
             transparent,
             transparent 2px,
-            rgba(255, 0, 0, 0.03) 2px,
-            rgba(255, 0, 0, 0.03) 4px
+            rgba(0, 255, 0, 0.03) 2px,
+            rgba(0, 255, 0, 0.03) 4px
         );
     pointer-events: none;
     z-index: 1;
@@ -410,199 +908,231 @@ body.ninja-mode::before {
     }
 }
 
-body.ninja-mode .title {
-    color: #ff0000;
+body.hacker-mode .title {
+    color: #00ff00;
     text-shadow: 
-        0 0 10px #ff0000,
-        0 0 20px #ff0000,
-        0 0 30px #ff0000,
-        0 0 40px #ff0000,
-        2px 2px 0 #000;
+        0 0 10px #00ff00,
+        0 0 20px #00ff00,
+        0 0 30px #00ff00,
+        0 0 40px #00ff00;
     font-family: 'Courier New', monospace;
-    letter-spacing: 4px;
+    letter-spacing: 5px;
+    animation: hackerGlitch 3s ease-in-out infinite;
 }
 
-body.ninja-mode h2 {
-    color: #ff0000;
-    text-shadow: 0 0 10px #ff0000, 2px 2px 0 #000;
+@keyframes hackerGlitch {
+    0%, 90%, 100% {
+        transform: translate(0, 0);
+    }
+    92% {
+        transform: translate(-2px, 2px);
+    }
+    94% {
+        transform: translate(2px, -2px);
+    }
+    96% {
+        transform: translate(-2px, -2px);
+    }
+    98% {
+        transform: translate(2px, 2px);
+    }
+}
+
+body.hacker-mode .title::before {
+    content: '> ';
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+body.hacker-mode h2 {
+    color: #00ff00;
+    text-shadow: 0 0 15px #00ff00;
     font-family: 'Courier New', monospace;
 }
 
-body.ninja-mode .btn-primary {
-    background: linear-gradient(135deg, #ff0000 0%, #8b0000 100%);
-    box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6);
-    border: 2px solid #ff0000;
-    position: relative;
-    overflow: hidden;
+body.hacker-mode h2::before {
+    content: '$ ';
 }
 
-body.ninja-mode .btn-primary::after {
-    content: '🥷';
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5rem;
+body.hacker-mode .btn-primary {
+    background: linear-gradient(135deg, #003300 0%, #001100 100%);
+    box-shadow: 
+        0 8px 25px rgba(0, 255, 0, 0.4),
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+    font-family: 'Courier New', monospace;
 }
 
-body.ninja-mode .btn-primary:hover {
-    box-shadow: 0 12px 35px rgba(255, 0, 0, 0.8);
-    transform: translateY(-3px) scale(1.02);
+body.hacker-mode .btn-primary::before {
+    content: '[EXEC] ';
 }
 
-body.ninja-mode .btn-secondary {
-    background: linear-gradient(135deg, #8b0000 0%, #4a0000 100%);
-    box-shadow: 0 8px 25px rgba(139, 0, 0, 0.6);
-    border: 2px solid #8b0000;
+body.hacker-mode .btn-primary:hover {
+    box-shadow: 
+        0 12px 35px rgba(0, 255, 0, 0.6),
+        inset 0 0 30px rgba(0, 255, 0, 0.2);
+    animation: hackerPulse 0.5s ease-in-out;
 }
 
-body.ninja-mode .mode-card {
-    background: linear-gradient(135deg, rgba(255, 0, 0, 0.2) 0%, rgba(139, 0, 0, 0.2) 100%);
-    border: 2px solid rgba(255, 0, 0, 0.4);
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+@keyframes hackerPulse {
+    0%, 100% {
+        transform: translateY(-3px);
+    }
+    50% {
+        transform: translateY(-5px) scale(1.02);
+    }
 }
 
-body.ninja-mode .mode-card:hover {
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
-    border-color: #ff0000;
+body.hacker-mode .btn-secondary {
+    background: linear-gradient(135deg, #002200 0%, #000800 100%);
+    box-shadow: 0 8px 25px rgba(0, 255, 0, 0.3);
+    border: 2px solid #00aa00;
+    color: #00aa00;
+    font-family: 'Courier New', monospace;
 }
 
-body.ninja-mode .mode-card h3 {
-    color: #ff0000;
-    text-shadow: 0 0 10px #ff0000;
+body.hacker-mode .btn-secondary::before {
+    content: '[RUN] ';
 }
 
-body.ninja-mode .flip-card-front {
-    background: linear-gradient(135deg, rgba(255, 0, 0, 0.3) 0%, rgba(139, 0, 0, 0.3) 100%);
-    border: 2px solid rgba(255, 0, 0, 0.5);
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+body.hacker-mode .mode-card {
+    background: linear-gradient(135deg, rgba(0, 51, 0, 0.5) 0%, rgba(0, 17, 0, 0.5) 100%);
+    border: 2px solid #00ff00;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 0, 0.3),
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
 }
 
-body.ninja-mode .flip-card-back {
-    background: linear-gradient(135deg, rgba(139, 0, 0, 0.4) 0%, rgba(74, 0, 0, 0.4) 100%);
-    border: 2px solid rgba(255, 0, 0, 0.5);
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+body.hacker-mode .mode-card:hover {
+    box-shadow: 
+        0 0 30px rgba(0, 255, 0, 0.5),
+        inset 0 0 30px rgba(0, 255, 0, 0.2);
+    border-color: #00ff00;
 }
 
-body.ninja-mode .card-icon {
-    filter: drop-shadow(0 0 10px #ff0000);
+body.hacker-mode .mode-card h3 {
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+    font-family: 'Courier New', monospace;
 }
 
-body.ninja-mode .category-text {
-    color: #ff0000;
-    text-shadow: 0 0 10px #ff0000;
+body.hacker-mode .mode-card h3::before {
+    content: '// ';
 }
 
-body.ninja-mode .word-text {
-    color: #fff;
-    text-shadow: 0 0 15px #ff0000, 2px 2px 0 #000;
+body.hacker-mode .flip-card-front {
+    background: 
+        linear-gradient(135deg, rgba(0, 51, 0, 0.6) 0%, rgba(0, 17, 0, 0.6) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 0, 0.1) 2px, rgba(0, 255, 0, 0.1) 4px);
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
 }
 
-body.ninja-mode #current-player-name {
-    background: linear-gradient(135deg, #ff0000 0%, #8b0000 100%);
+body.hacker-mode .flip-card-back {
+    background: 
+        linear-gradient(135deg, rgba(0, 34, 0, 0.7) 0%, rgba(0, 11, 0, 0.7) 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 0, 0.1) 2px, rgba(0, 255, 0, 0.1) 4px);
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+}
+
+body.hacker-mode .flip-card-front p::before {
+    content: '[ENCRYPTED] ';
+}
+
+body.hacker-mode .category-text {
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+    font-family: 'Courier New', monospace;
+}
+
+body.hacker-mode .category-text::before {
+    content: 'TYPE: ';
+}
+
+body.hacker-mode .word-text {
+    color: #00ff00;
+    text-shadow: 0 0 15px #00ff00;
+    font-family: 'Courier New', monospace;
+}
+
+body.hacker-mode #current-player-name {
+    background: linear-gradient(135deg, #00ff00 0%, #00aa00 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    filter: drop-shadow(0 0 10px #ff0000);
+    filter: drop-shadow(0 0 10px #00ff00);
+    font-family: 'Courier New', monospace;
 }
 
-body.ninja-mode .games-counter span {
-    color: #ff0000;
-    text-shadow: 0 0 10px #ff0000;
+body.hacker-mode #current-player-name::before {
+    content: 'USER: ';
+    -webkit-text-fill-color: #00ff00;
 }
 
-body.ninja-mode .result-impostor {
+body.hacker-mode .games-counter span {
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+body.hacker-mode .result-impostor {
     color: #ff0000;
     text-shadow: 0 0 30px #ff0000;
+    font-family: 'Courier New', monospace;
 }
 
-body.ninja-mode .result-word {
-    color: #ff0000;
-    text-shadow: 0 0 20px #ff0000;
+body.hacker-mode .result-word {
+    color: #00ff00;
+    text-shadow: 0 0 20px #00ff00;
+    font-family: 'Courier New', monospace;
 }
 
-body.ninja-mode .settings-container {
-    background: rgba(255, 0, 0, 0.1);
-    border: 1px solid rgba(255, 0, 0, 0.3);
+body.hacker-mode .settings-container {
+    background: rgba(0, 51, 0, 0.3);
+    border: 1px solid #00ff00;
 }
 
-body.ninja-mode #players-list li {
-    background: linear-gradient(135deg, rgba(255, 0, 0, 0.15) 0%, rgba(139, 0, 0, 0.1) 100%);
-    border: 1px solid rgba(255, 0, 0, 0.3);
+body.hacker-mode #players-list li {
+    background: linear-gradient(135deg, rgba(0, 51, 0, 0.3) 0%, rgba(0, 17, 0, 0.3) 100%);
+    border: 1px solid #00ff00;
 }
 
-body.ninja-mode .instructions {
-    background: rgba(255, 0, 0, 0.1);
-    border: 1px solid rgba(255, 0, 0, 0.3);
+body.hacker-mode .instructions {
+    background: rgba(0, 51, 0, 0.3);
+    border: 1px solid #00ff00;
 }
 
-body.ninja-mode .result-card {
-    background: linear-gradient(135deg, rgba(255, 0, 0, 0.2) 0%, rgba(139, 0, 0, 0.1) 100%);
-    border: 2px solid rgba(255, 0, 0, 0.4);
-    box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+body.hacker-mode .instructions::before {
+    content: '// INSTRUCTIONS: ';
+    color: #00ff00;
+    font-weight: bold;
 }
 
-body.ninja-mode .sound-toggle {
-    background: rgba(255, 0, 0, 0.2);
-    border: 1px solid rgba(255, 0, 0, 0.5);
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+body.hacker-mode .result-card {
+    background: linear-gradient(135deg, rgba(0, 51, 0, 0.4) 0%, rgba(0, 17, 0, 0.4) 100%);
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.4);
 }
 
-body.ninja-mode .particle {
-    background: rgba(255, 0, 0, 0.5);
-    box-shadow: 0 0 5px #ff0000;
+body.hacker-mode .sound-toggle {
+    background: rgba(0, 51, 0, 0.5);
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
 }
 
-.ninja-toggle {
-    background: linear-gradient(135deg, #ff0000 0%, #8b0000 100%) !important;
-}
-
-/* Efecte de fum ninja */
-body.ninja-mode::after {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, transparent 0%, rgba(255, 0, 0, 0.05) 50%, transparent 100%);
-    animation: ninjaSmoke 10s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
-}
-
-@keyframes ninjaSmoke {
-    0%, 100% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.3;
-    }
-    50% {
-        transform: translate(10%, 10%) scale(1.1);
-        opacity: 0.5;
-    }
-}
-
-/* Shuriken decoratius */
-body.ninja-mode .mode-icon {
-    position: relative;
-}
-
-body.ninja-mode .mode-icon::before {
-    content: '🥷';
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 1.5rem;
-    animation: shurikenSpin 3s linear infinite;
-}
-
-@keyframes shurikenSpin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+body.hacker-mode .particle {
+    background: #00ff00;
+    box-shadow: 0 0 5px #00ff00;
 }
 
 #app {

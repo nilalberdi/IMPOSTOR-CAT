@@ -104,10 +104,13 @@
                 </div>
 
                 <div class="setting-item">
-                    <label>🥷 Mode Ninja:</label>
-                    <button class="toggle-btn ninja-toggle" id="ninja-mode-toggle" onclick="game.toggleNinjaMode()">
-                        <span id="ninja-mode-text">Desactivat</span>
-                    </button>
+                    <label>🎨 Tema:</label>
+                    <select id="theme-select" onchange="game.setTheme(this.value)">
+                        <option value="normal">Normal</option>
+                        <option value="ninja">🥷 Ninja</option>
+                        <option value="christmas">🎄 Nadal</option>
+                        <option value="hacker">💻 Hacker</option>
+                    </select>
                 </div>
             </div>
             <button class="btn-primary" onclick="game.backToHome()">Tornar</button>

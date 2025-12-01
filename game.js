@@ -12,11 +12,11 @@ class Game {
         this.soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
         this.impostorCount = parseInt(localStorage.getItem('impostorCount') || '1');
         this.darkMode = localStorage.getItem('darkMode') !== 'false';
-        this.ninjaMode = localStorage.getItem('ninjaMode') === 'true';
+        this.themeMode = localStorage.getItem('themeMode') || 'normal'; // normal, ninja, christmas, hacker
         this.gameMode = 'normal'; // normal, hardcore, crazy
         this.initAudio();
         this.applyDarkMode();
-        this.applyNinjaMode();
+        this.applyTheme();
     }
 
     initAudio() {
@@ -86,20 +86,30 @@ class Game {
         }
     }
 
-    toggleNinjaMode() {
-        this.ninjaMode = !this.ninjaMode;
-        localStorage.setItem('ninjaMode', this.ninjaMode.toString());
-        this.applyNinjaMode();
+    setTheme(theme) {
+        this.themeMode = theme;
+        localStorage.setItem('themeMode', theme);
+        this.applyTheme();
         this.vibrate(50);
     }
 
-    applyNinjaMode() {
-        if (this.ninjaMode) {
+    applyTheme() {
+        // Eliminar tots els temes
+        document.body.classList.remove('ninja-mode', 'christmas-mode', 'hacker-mode');
+        
+        // Aplicar el tema seleccionat
+        if (this.themeMode === 'ninja') {
             document.body.classList.add('ninja-mode');
-            document.getElementById('ninja-mode-text').textContent = 'Activat';
-        } else {
-            document.body.classList.remove('ninja-mode');
-            document.getElementById('ninja-mode-text').textContent = 'Desactivat';
+        } else if (this.themeMode === 'christmas') {
+            document.body.classList.add('christmas-mode');
+        } else if (this.themeMode === 'hacker') {
+            document.body.classList.add('hacker-mode');
+        }
+        
+        // Actualitzar selector si existeix
+        const themeSelect = document.getElementById('theme-select');
+        if (themeSelect) {
+            themeSelect.value = this.themeMode;
         }
     }
 
@@ -554,8 +564,6 @@ document.addEventListener('DOMContentLoaded', () => {
     soundIcon.textContent = game.soundEnabled ? '🔊' : '🔇';
     soundBtn.classList.toggle('muted', !game.soundEnabled);
     
-    // Actualitzar mode ninja
-    if (document.getElementById('ninja-mode-text')) {
-        document.getElementById('ninja-mode-text').textContent = game.ninjaMode ? 'Activat' : 'Desactivat';
-    }
+    // Aplicar tema guardat
+    game.applyTheme();
 });
