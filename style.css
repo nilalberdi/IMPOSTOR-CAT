@@ -489,8 +489,7 @@ body.ninja-mode h2 {
 }
 
 body.ninja-mode h2::after {
-    content: ' 🥷';
-    font-size: 0.8em;
+    content: '';
 }
 
 body.ninja-mode .btn-primary {
@@ -785,7 +784,7 @@ body.christmas-mode h2 {
 }
 
 body.christmas-mode h2::after {
-    content: ' 🎁';
+    content: '';
 }
 
 body.christmas-mode .btn-primary {
@@ -1022,7 +1021,7 @@ body.hacker-mode h2 {
 }
 
 body.hacker-mode h2::before {
-    content: '$ ';
+    content: '';
 }
 
 body.hacker-mode .btn-primary {
@@ -1218,6 +1217,347 @@ body.hacker-mode .sound-toggle {
 body.hacker-mode .particle {
     background: #00ff00;
     box-shadow: 0 0 5px #00ff00;
+}
+
+/* ============================================
+   MODE CATALUNYA 🔴🟡 - Visca Catalunya!
+   ============================================ */
+body.catalunya-mode {
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            #fcdd09 0px,
+            #fcdd09 40px,
+            #da121a 40px,
+            #da121a 80px
+        ),
+        linear-gradient(135deg, rgba(252, 221, 9, 0.1) 0%, rgba(218, 18, 26, 0.1) 100%);
+    background-attachment: fixed;
+}
+
+/* Senyera animada de fons */
+body.catalunya-mode::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 35px,
+            rgba(218, 18, 26, 0.1) 35px,
+            rgba(218, 18, 26, 0.1) 40px,
+            transparent 40px,
+            transparent 75px,
+            rgba(252, 221, 9, 0.1) 75px,
+            rgba(252, 221, 9, 0.1) 80px
+        );
+    pointer-events: none;
+    z-index: 1;
+    animation: senyeraWave 20s linear infinite;
+}
+
+@keyframes senyeraWave {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(80px);
+    }
+}
+
+/* Estrelles estelada flotants */
+body.catalunya-mode::after {
+    content: '⭐';
+    position: fixed;
+    font-size: 3rem;
+    color: #fff;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 2;
+    animation: estelada 15s linear infinite;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes estelada {
+    0% {
+        top: -10%;
+        left: 10%;
+        transform: rotate(0deg) scale(1);
+    }
+    25% {
+        top: 25%;
+        left: 80%;
+        transform: rotate(90deg) scale(1.2);
+    }
+    50% {
+        top: 60%;
+        left: 20%;
+        transform: rotate(180deg) scale(0.8);
+    }
+    75% {
+        top: 35%;
+        left: 90%;
+        transform: rotate(270deg) scale(1.1);
+    }
+    100% {
+        top: 110%;
+        left: 50%;
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+body.catalunya-mode .title {
+    color: #da121a;
+    text-shadow: 
+        0 0 20px rgba(218, 18, 26, 0.8),
+        3px 3px 0 #fcdd09,
+        6px 6px 0 #da121a;
+    font-weight: 900;
+    animation: catalunyaPride 3s ease-in-out infinite;
+}
+
+@keyframes catalunyaPride {
+    0%, 100% {
+        text-shadow: 
+            0 0 20px rgba(218, 18, 26, 0.8),
+            3px 3px 0 #fcdd09,
+            6px 6px 0 #da121a;
+    }
+    50% {
+        text-shadow: 
+            0 0 30px rgba(252, 221, 9, 0.8),
+            3px 3px 0 #da121a,
+            6px 6px 0 #fcdd09;
+    }
+}
+
+body.catalunya-mode .title::before {
+    content: 'VISCA ';
+    font-size: 0.4em;
+    display: block;
+    margin-bottom: 5px;
+    color: #fcdd09;
+    text-shadow: 2px 2px 0 #da121a;
+}
+
+body.catalunya-mode .title::after {
+    content: ' LLIURE';
+    font-size: 0.4em;
+    display: block;
+    margin-top: 5px;
+    color: #fcdd09;
+    text-shadow: 2px 2px 0 #da121a;
+}
+
+body.catalunya-mode h2 {
+    color: #da121a;
+    text-shadow: 0 0 15px rgba(218, 18, 26, 0.8), 2px 2px 0 #fcdd09;
+    font-weight: 700;
+}
+
+body.catalunya-mode .btn-primary {
+    background: linear-gradient(135deg, #da121a 0%, #fcdd09 50%, #da121a 100%);
+    box-shadow: 
+        0 8px 25px rgba(218, 18, 26, 0.6),
+        0 0 40px rgba(252, 221, 9, 0.4);
+    border: 3px solid #fcdd09;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000;
+    font-weight: 700;
+    animation: catalunyaPulse 2s ease-in-out infinite;
+}
+
+@keyframes catalunyaPulse {
+    0%, 100% {
+        box-shadow: 
+            0 8px 25px rgba(218, 18, 26, 0.6),
+            0 0 40px rgba(252, 221, 9, 0.4);
+    }
+    50% {
+        box-shadow: 
+            0 8px 25px rgba(252, 221, 9, 0.6),
+            0 0 40px rgba(218, 18, 26, 0.4);
+    }
+}
+
+body.catalunya-mode .btn-primary::before {
+    content: '🔴 ';
+    margin-right: 8px;
+}
+
+body.catalunya-mode .btn-primary::after {
+    content: ' 🟡';
+    margin-left: 8px;
+}
+
+body.catalunya-mode .btn-secondary {
+    background: linear-gradient(135deg, #fcdd09 0%, #da121a 100%);
+    box-shadow: 0 8px 25px rgba(252, 221, 9, 0.6);
+    border: 3px solid #da121a;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000;
+    font-weight: 700;
+}
+
+body.catalunya-mode .mode-card {
+    background: 
+        linear-gradient(135deg, rgba(218, 18, 26, 0.3) 0%, rgba(252, 221, 9, 0.3) 100%),
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(218, 18, 26, 0.1) 10px,
+            rgba(218, 18, 26, 0.1) 20px
+        );
+    border: 3px solid #fcdd09;
+    box-shadow: 0 0 30px rgba(218, 18, 26, 0.5);
+}
+
+body.catalunya-mode .mode-card:hover {
+    box-shadow: 0 0 40px rgba(252, 221, 9, 0.8);
+    transform: translateY(-5px) scale(1.02);
+    border-color: #da121a;
+}
+
+body.catalunya-mode .mode-card h3 {
+    color: #da121a;
+    text-shadow: 0 0 10px rgba(218, 18, 26, 0.8), 2px 2px 0 #fcdd09;
+}
+
+body.catalunya-mode .flip-card-front {
+    background: 
+        linear-gradient(135deg, rgba(218, 18, 26, 0.5) 0%, rgba(252, 221, 9, 0.5) 100%),
+        repeating-linear-gradient(
+            0deg,
+            #fcdd09 0px,
+            #fcdd09 20px,
+            #da121a 20px,
+            #da121a 40px
+        );
+    border: 3px solid #fcdd09;
+    box-shadow: 0 0 30px rgba(218, 18, 26, 0.6);
+}
+
+body.catalunya-mode .flip-card-back {
+    background: 
+        linear-gradient(135deg, rgba(252, 221, 9, 0.6) 0%, rgba(218, 18, 26, 0.6) 100%),
+        repeating-linear-gradient(
+            0deg,
+            #da121a 0px,
+            #da121a 20px,
+            #fcdd09 20px,
+            #fcdd09 40px
+        );
+    border: 3px solid #da121a;
+    box-shadow: 0 0 30px rgba(252, 221, 9, 0.6);
+}
+
+body.catalunya-mode .card-icon {
+    filter: drop-shadow(0 0 15px rgba(218, 18, 26, 0.8));
+}
+
+body.catalunya-mode .category-text {
+    color: #fcdd09;
+    text-shadow: 0 0 15px rgba(252, 221, 9, 0.8), 2px 2px 4px #da121a;
+    font-weight: 700;
+}
+
+body.catalunya-mode .word-text {
+    color: #fff;
+    text-shadow: 
+        0 0 20px rgba(218, 18, 26, 0.8),
+        0 0 40px rgba(252, 221, 9, 0.8),
+        3px 3px 6px #000;
+    font-weight: 800;
+}
+
+body.catalunya-mode #current-player-name {
+    background: linear-gradient(135deg, #da121a 0%, #fcdd09 50%, #da121a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 15px rgba(218, 18, 26, 0.8));
+}
+
+body.catalunya-mode .games-counter span {
+    color: #da121a;
+    text-shadow: 0 0 15px rgba(218, 18, 26, 0.8), 2px 2px 0 #fcdd09;
+}
+
+body.catalunya-mode .result-impostor {
+    color: #da121a;
+    text-shadow: 0 0 30px rgba(218, 18, 26, 0.8), 2px 2px 0 #fcdd09;
+}
+
+body.catalunya-mode .result-word {
+    color: #fcdd09;
+    text-shadow: 0 0 30px rgba(252, 221, 9, 0.8), 2px 2px 0 #da121a;
+}
+
+body.catalunya-mode .settings-container {
+    background: 
+        linear-gradient(135deg, rgba(218, 18, 26, 0.2) 0%, rgba(252, 221, 9, 0.2) 100%);
+    border: 2px solid #fcdd09;
+    box-shadow: 0 0 20px rgba(218, 18, 26, 0.4);
+}
+
+body.catalunya-mode #players-list li {
+    background: 
+        linear-gradient(135deg, rgba(218, 18, 26, 0.2) 0%, rgba(252, 221, 9, 0.2) 100%);
+    border: 2px solid #fcdd09;
+}
+
+body.catalunya-mode #players-list li:hover {
+    background: 
+        linear-gradient(135deg, rgba(252, 221, 9, 0.3) 0%, rgba(218, 18, 26, 0.3) 100%);
+    border-color: #da121a;
+}
+
+body.catalunya-mode .instructions {
+    background: rgba(218, 18, 26, 0.2);
+    border: 2px solid #fcdd09;
+}
+
+body.catalunya-mode .result-card {
+    background: 
+        linear-gradient(135deg, rgba(218, 18, 26, 0.4) 0%, rgba(252, 221, 9, 0.4) 100%);
+    border: 3px solid #fcdd09;
+    box-shadow: 0 0 40px rgba(218, 18, 26, 0.6);
+}
+
+body.catalunya-mode .sound-toggle {
+    background: rgba(218, 18, 26, 0.5);
+    border: 2px solid #fcdd09;
+    box-shadow: 0 0 15px rgba(218, 18, 26, 0.6);
+}
+
+body.catalunya-mode .particle {
+    background: linear-gradient(135deg, #da121a 0%, #fcdd09 100%);
+    box-shadow: 0 0 10px rgba(218, 18, 26, 0.8);
+    border-radius: 50%;
+}
+
+/* Barretines decoratives */
+body.catalunya-mode .mode-icon::after {
+    content: '🎩';
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    font-size: 1.5rem;
+    animation: barretinaFloat 3s ease-in-out infinite;
+}
+
+@keyframes barretinaFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-10deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(10deg);
+    }
 }
 
 #app {

@@ -95,7 +95,7 @@ class Game {
 
     applyTheme() {
         // Eliminar tots els temes
-        document.body.classList.remove('ninja-mode', 'christmas-mode', 'hacker-mode');
+        document.body.classList.remove('ninja-mode', 'christmas-mode', 'hacker-mode', 'catalunya-mode');
         
         // Aplicar el tema seleccionat
         if (this.themeMode === 'ninja') {
@@ -104,6 +104,8 @@ class Game {
             document.body.classList.add('christmas-mode');
         } else if (this.themeMode === 'hacker') {
             document.body.classList.add('hacker-mode');
+        } else if (this.themeMode === 'catalunya') {
+            document.body.classList.add('catalunya-mode');
         }
         
         // Actualitzar selector si existeix
