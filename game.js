@@ -18,10 +18,10 @@ class Game {
     }
 
     initAudio() {
-        // Crear contexto de audio
+        // Crear context d'àudio
         this.audioContext = null;
         
-        // Inicializar en el primer toque del usuario
+        // Inicialitzar al primer toc de l'usuari
         document.addEventListener('touchstart', () => {
             if (!this.audioContext) {
                 this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -113,14 +113,14 @@ class Game {
         gainNode.connect(this.audioContext.destination);
         
         if (isImpostor) {
-            // Sonido dramático para impostor
+            // So dramàtic per impostor
             oscillator.frequency.setValueAtTime(400, this.audioContext.currentTime);
             oscillator.frequency.exponentialRampToValueAtTime(100, this.audioContext.currentTime + 0.5);
             gainNode.gain.setValueAtTime(0.4, this.audioContext.currentTime);
             gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5);
             oscillator.stop(this.audioContext.currentTime + 0.5);
         } else {
-            // Sonido suave para jugador normal
+            // So suau per jugador normal
             oscillator.frequency.setValueAtTime(600, this.audioContext.currentTime);
             oscillator.frequency.exponentialRampToValueAtTime(800, this.audioContext.currentTime + 0.2);
             gainNode.gain.setValueAtTime(0.2, this.audioContext.currentTime);
@@ -334,7 +334,7 @@ class Game {
             const now = Date.now();
             const timeDiff = now - lastTime;
             
-            // Calcular velocidad
+            // Calcular velocitat
             if (timeDiff > 0) {
                 velocity = (currentX - lastX) / timeDiff;
             }
@@ -342,19 +342,19 @@ class Game {
             lastX = currentX;
             lastTime = now;
             
-            // Rotación con física suave
+            // Rotació amb física suau
             currentRotation = Math.min(180, Math.max(0, diff * 0.8));
             flipCardInner.style.transform = `rotateY(${currentRotation}deg)`;
         };
         
-        const handleEnd = (e) => {
+        const handleEnd = () => {
             if (!isDragging || this.cardFlipped) return;
             
             isDragging = false;
             flipCard.style.cursor = 'grab';
             flipCardInner.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
             
-            // Física: si tiene velocidad o pasó del punto medio, completar el giro
+            // Física: si té velocitat o ha passat del punt mig, completar el gir
             const shouldFlip = currentRotation > 90 || velocity > 0.5;
             
             if (shouldFlip) {
@@ -362,23 +362,23 @@ class Game {
                 this.cardFlipped = true;
                 flipCardInner.style.transform = 'rotateY(180deg)';
                 
-                // Sonido y vibración al revelar
+                // So i vibració al revelar
                 this.playWhoosh();
                 const isImpostor = this.impostorIndices.includes(this.currentPlayerIndex);
                 
                 setTimeout(() => {
                     this.playRevealSound(isImpostor);
                     if (isImpostor) {
-                        this.vibrate([100, 50, 100, 50, 200]); // Patrón dramático
+                        this.vibrate([100, 50, 100, 50, 200]); // Patró dramàtic
                     } else {
-                        this.vibrate(50); // Vibración suave
+                        this.vibrate(50); // Vibració suau
                     }
                     document.getElementById('btn-next-player').classList.remove('hidden');
                 }, 400);
             } else {
-                // Volver a la posición inicial con rebote
+                // Tornar a la posició inicial amb rebot
                 flipCardInner.style.transform = 'rotateY(0deg)';
-                this.vibrate(20); // Feedback de rebote
+                this.vibrate(20); // Feedback de rebot
             }
             
             currentRotation = 0;
@@ -396,14 +396,14 @@ class Game {
         document.addEventListener('mousemove', handleMove);
         document.addEventListener('mouseup', handleEnd);
         
-        // Click simple como alternativa
-        flipCard.addEventListener('click', (e) => {
+        // Clic simple com alternativa
+        flipCard.addEventListener('click', () => {
             if (!isDragging && !this.cardFlipped) {
                 flipCardInner.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
                 flipCard.classList.add('flipped');
                 this.cardFlipped = true;
                 
-                // Sonido y vibración
+                // So i vibració
                 this.playWhoosh();
                 const isImpostor = this.impostorIndices.includes(this.currentPlayerIndex);
                 
@@ -442,16 +442,16 @@ class Game {
         document.getElementById('impostor-name').textContent = impostorNames;
         document.getElementById('secret-word').textContent = this.secretWord;
         
-        // Incrementar contador de partidas
+        // Incrementar comptador de partides
         this.gamesPlayed++;
         localStorage.setItem('gamesPlayed', this.gamesPlayed.toString());
         
-        // Vibración y sonido de revelación final
+        // Vibració i so de revelació final
         this.vibrate([200, 100, 200]);
         
         this.showScreen('screen-result');
         
-        // Confeti animation
+        // Animació de confeti
         this.createConfetti();
     }
 

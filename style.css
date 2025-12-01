@@ -111,8 +111,20 @@ html {
 .games-counter {
     text-align: center;
     font-size: 1rem;
-    opacity: 0.8;
+    opacity: 0;
     margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease-out 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 0.8;
+        transform: translateY(0);
+    }
 }
 
 .games-counter span {
@@ -221,13 +233,37 @@ html {
 
 .mode-card {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
-    padding: 25px;
+    padding: 20px;
     border-radius: 20px;
     backdrop-filter: blur(20px);
     border: 2px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
+    animation: modeCardSlide 0.5s ease-out backwards;
+}
+
+.mode-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.mode-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.mode-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes modeCardSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .mode-card:hover {
@@ -262,15 +298,15 @@ html {
 }
 
 .mode-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
     font-weight: 700;
 }
 
 .mode-card p {
-    font-size: 1rem;
+    font-size: 0.95rem;
     opacity: 0.9;
-    line-height: 1.5;
+    line-height: 1.4;
 }
 
 /* Configuració */
@@ -344,20 +380,22 @@ body.light-mode .flip-card-back {
     width: 100%;
     height: 100%;
     max-width: 500px;
-    padding: 20px;
-    padding-top: max(60px, env(safe-area-inset-top));
-    padding-bottom: max(20px, env(safe-area-inset-bottom));
-    padding-left: max(20px, env(safe-area-inset-left));
-    padding-right: max(20px, env(safe-area-inset-right));
+    padding: 15px;
+    padding-top: max(70px, env(safe-area-inset-top) + 50px);
+    padding-bottom: max(30px, env(safe-area-inset-bottom) + 10px);
+    padding-left: max(15px, env(safe-area-inset-left));
+    padding-right: max(15px, env(safe-area-inset-right));
     overflow-y: auto;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 .screen {
-    height: 100%;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-top: 20px;
 }
 
 .screen {
@@ -426,13 +464,24 @@ body.light-mode .flip-card-back {
 }
 
 .title {
-    font-size: 3.5rem;
+    font-size: 3rem;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 4px 8px rgba(0,0,0,0.5);
     font-weight: 700;
     letter-spacing: 2px;
-    animation: titleGlow 3s ease-in-out infinite;
+    animation: titleGlow 3s ease-in-out infinite, titleSlideIn 0.8s ease-out;
+}
+
+@keyframes titleSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes titleGlow {
@@ -445,11 +494,23 @@ body.light-mode .flip-card-back {
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     font-weight: 600;
     letter-spacing: 1px;
+    animation: fadeInDown 0.5s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .btn-primary, .btn-secondary {
@@ -492,6 +553,18 @@ h2 {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    animation: btnFadeIn 0.6s ease-out 0.5s backwards;
+}
+
+@keyframes btnFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .btn-primary:hover {
@@ -512,6 +585,7 @@ h2 {
     color: white;
     margin-top: 15px;
     box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+    animation: btnFadeIn 0.6s ease-out 0.7s backwards;
 }
 
 .btn-secondary:hover {
@@ -630,14 +704,14 @@ h2 {
 
 .card-container {
     perspective: 1000px;
-    margin: 40px auto;
+    margin: 20px auto;
     width: 100%;
-    max-width: 350px;
+    max-width: 320px;
 }
 
 .flip-card {
     width: 100%;
-    height: 400px;
+    height: 380px;
     cursor: grab;
     position: relative;
     user-select: none;
@@ -732,10 +806,12 @@ h2 {
 }
 
 .word-text {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.3;
     text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .instructions {
