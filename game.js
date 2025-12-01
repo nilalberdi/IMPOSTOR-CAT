@@ -325,8 +325,8 @@ class Game {
             }
         }
         
-        // Mostrar botó següent jugador sempre visible
-        document.getElementById('btn-next-player').classList.remove('hidden');
+        // Amagar botó següent jugador fins que es giri la targeta
+        document.getElementById('btn-next-player').classList.add('hidden');
         
         // Afegir event listener per girar la targeta
         setTimeout(() => {
