@@ -12,9 +12,11 @@ class Game {
         this.soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
         this.impostorCount = parseInt(localStorage.getItem('impostorCount') || '1');
         this.darkMode = localStorage.getItem('darkMode') !== 'false';
+        this.ninjaMode = localStorage.getItem('ninjaMode') === 'true';
         this.gameMode = 'normal'; // normal, hardcore, crazy
         this.initAudio();
         this.applyDarkMode();
+        this.applyNinjaMode();
     }
 
     initAudio() {
@@ -81,6 +83,23 @@ class Game {
         } else {
             document.body.classList.add('light-mode');
             document.getElementById('dark-mode-text').textContent = 'Desactivat';
+        }
+    }
+
+    toggleNinjaMode() {
+        this.ninjaMode = !this.ninjaMode;
+        localStorage.setItem('ninjaMode', this.ninjaMode.toString());
+        this.applyNinjaMode();
+        this.vibrate(50);
+    }
+
+    applyNinjaMode() {
+        if (this.ninjaMode) {
+            document.body.classList.add('ninja-mode');
+            document.getElementById('ninja-mode-text').textContent = 'Activat';
+        } else {
+            document.body.classList.remove('ninja-mode');
+            document.getElementById('ninja-mode-text').textContent = 'Desactivat';
         }
     }
 
@@ -293,6 +312,9 @@ class Game {
                 wordText.style.color = '#fff';
             }
         }
+        
+        // Mostrar botó següent jugador sempre visible
+        document.getElementById('btn-next-player').classList.remove('hidden');
         
         // Afegir event listener per girar la targeta
         setTimeout(() => {
@@ -531,4 +553,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const soundBtn = document.getElementById('sound-toggle');
     soundIcon.textContent = game.soundEnabled ? '🔊' : '🔇';
     soundBtn.classList.toggle('muted', !game.soundEnabled);
+    
+    // Actualitzar mode ninja
+    if (document.getElementById('ninja-mode-text')) {
+        document.getElementById('ninja-mode-text').textContent = game.ninjaMode ? 'Activat' : 'Desactivat';
+    }
 });
