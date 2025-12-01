@@ -532,8 +532,7 @@ body.ninja-mode .btn-primary {
 }
 
 body.ninja-mode .btn-primary::before {
-    content: '⚔️ ';
-    margin-right: 8px;
+    content: '';
 }
 
 body.ninja-mode .btn-primary:hover {
@@ -833,8 +832,7 @@ body.christmas-mode .btn-primary {
 }
 
 body.christmas-mode .btn-primary::before {
-    content: '🎁 ';
-    margin-right: 8px;
+    content: '';
 }
 
 body.christmas-mode .btn-secondary {
@@ -844,8 +842,7 @@ body.christmas-mode .btn-secondary {
 }
 
 body.christmas-mode .btn-secondary::before {
-    content: '⭐ ';
-    margin-right: 8px;
+    content: '';
 }
 
 body.christmas-mode .mode-card {
@@ -1067,8 +1064,7 @@ body.hacker-mode .btn-primary {
 }
 
 body.hacker-mode .btn-primary::before {
-    content: '[EXEC] ';
-    margin-right: 8px;
+    content: '';
 }
 
 body.hacker-mode .btn-primary:hover {
