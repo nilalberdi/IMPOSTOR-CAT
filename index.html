@@ -44,10 +44,8 @@
         <div class="particle"></div>
     </div>
 
-    <!-- Botó de so -->
-    <button id="sound-toggle" class="sound-toggle" onclick="game.toggleSound()">
-        <span id="sound-icon">🔊</span>
-    </button>
+    <!-- Versió del joc -->
+    <div class="version">v1.2.0</div>
 
     <div id="app">
         <!-- Pantalla d'inici -->
@@ -149,10 +147,12 @@
                         </div>
                     </div>
                 </div>
-                
-                <button id="btn-next-player" class="btn-secondary hidden" onclick="game.nextPlayer()">Següent jugador</button>
             </div>
-            <button id="btn-start-round" class="btn-primary hidden" onclick="game.startRound()">Començar ronda</button>
+            
+            <div class="reveal-buttons">
+                <button id="btn-next-player" class="btn-secondary hidden" onclick="game.nextPlayer()">Següent jugador</button>
+                <button id="btn-start-round" class="btn-primary hidden" onclick="game.startRound()">Començar ronda</button>
+            </div>
         </div>
 
         <!-- Pantalla de ronda -->

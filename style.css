@@ -374,9 +374,8 @@ html {
 }
 
 /* Mode clar */
-body.light-mode .sound-toggle {
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+body.light-mode .version {
+    color: rgba(0, 0, 0, 0.4);
 }
 
 body.light-mode .settings-container,
@@ -669,10 +668,8 @@ body.ninja-mode .result-card {
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
 }
 
-body.ninja-mode .sound-toggle {
-    background: rgba(60, 60, 60, 0.5);
-    border: 1px solid #666;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+body.ninja-mode .version {
+    color: rgba(255, 255, 255, 0.3);
 }
 
 body.ninja-mode .particle {
@@ -1233,10 +1230,9 @@ body.hacker-mode .result-card {
     box-shadow: 0 0 40px rgba(0, 255, 0, 0.4);
 }
 
-body.hacker-mode .sound-toggle {
-    background: rgba(0, 51, 0, 0.5);
-    border: 1px solid #00ff00;
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+body.hacker-mode .version {
+    color: rgba(0, 255, 0, 0.6);
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
 }
 
 body.hacker-mode .particle {
@@ -1554,10 +1550,9 @@ body.catalunya-mode .result-card {
     box-shadow: 0 0 40px rgba(218, 18, 26, 0.6);
 }
 
-body.catalunya-mode .sound-toggle {
-    background: rgba(218, 18, 26, 0.5);
-    border: 2px solid #fcdd09;
-    box-shadow: 0 0 15px rgba(218, 18, 26, 0.6);
+body.catalunya-mode .version {
+    color: rgba(252, 221, 9, 0.8);
+    text-shadow: 0 0 5px rgba(218, 18, 26, 0.5);
 }
 
 body.catalunya-mode .particle {
@@ -1623,38 +1618,17 @@ body.christmas-mode #app {
     display: flex;
 }
 
-/* Botó de so */
-.sound-toggle {
+/* Versió del joc */
+.version {
     position: fixed;
-    top: max(15px, env(safe-area-inset-top));
-    right: max(15px, env(safe-area-inset-right));
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    cursor: pointer;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    right: max(10px, env(safe-area-inset-right));
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
     z-index: 1000;
-    transition: all 0.3s ease;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.sound-toggle:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: scale(1.1);
-}
-
-.sound-toggle:active {
-    transform: scale(0.95);
-}
-
-.sound-toggle.muted {
-    opacity: 0.5;
+    pointer-events: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 @keyframes fadeIn {
@@ -1943,6 +1917,38 @@ h2 {
 
 .flip-card:active {
     cursor: grabbing;
+}
+
+.reveal-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+}
+
+.reveal-buttons .btn-secondary,
+.reveal-buttons .btn-primary {
+    min-height: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    .reveal-buttons .btn-secondary,
+    .reveal-buttons .btn-primary {
+        min-height: 60px;
+        font-size: 1.2rem;
+        padding: 15px 25px;
+    }
 }
 
 .flip-card-inner {

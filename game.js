@@ -9,7 +9,7 @@ class Game {
         this.currentPlayerIndex = 0;
         this.cardFlipped = false;
         this.gamesPlayed = parseInt(localStorage.getItem('gamesPlayed') || '0');
-        this.soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
+
         this.impostorCount = parseInt(localStorage.getItem('impostorCount') || '1');
         this.darkMode = localStorage.getItem('darkMode') !== 'false';
         this.themeMode = localStorage.getItem('themeMode') || 'normal'; // normal, ninja, christmas, hacker
@@ -31,15 +31,7 @@ class Game {
         }, { once: true });
     }
 
-    toggleSound() {
-        this.soundEnabled = !this.soundEnabled;
-        localStorage.setItem('soundEnabled', this.soundEnabled.toString());
-        const icon = document.getElementById('sound-icon');
-        const btn = document.getElementById('sound-toggle');
-        icon.textContent = this.soundEnabled ? '🔊' : '🔇';
-        btn.classList.toggle('muted', !this.soundEnabled);
-        this.vibrate(30);
-    }
+
 
     showModeSelect() {
         this.vibrate(30);
@@ -116,50 +108,11 @@ class Game {
     }
 
     playWhoosh() {
-        if (!this.audioContext || !this.soundEnabled) return;
-        
-        const oscillator = this.audioContext.createOscillator();
-        const gainNode = this.audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(this.audioContext.destination);
-        
-        oscillator.frequency.setValueAtTime(800, this.audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(200, this.audioContext.currentTime + 0.3);
-        
-        gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
-        
-        oscillator.start(this.audioContext.currentTime);
-        oscillator.stop(this.audioContext.currentTime + 0.3);
+        // So desactivat
     }
 
     playRevealSound(isImpostor) {
-        if (!this.audioContext || !this.soundEnabled) return;
-        
-        const oscillator = this.audioContext.createOscillator();
-        const gainNode = this.audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(this.audioContext.destination);
-        
-        if (isImpostor) {
-            // So dramàtic per impostor
-            oscillator.frequency.setValueAtTime(400, this.audioContext.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(100, this.audioContext.currentTime + 0.5);
-            gainNode.gain.setValueAtTime(0.4, this.audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5);
-            oscillator.stop(this.audioContext.currentTime + 0.5);
-        } else {
-            // So suau per jugador normal
-            oscillator.frequency.setValueAtTime(600, this.audioContext.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(800, this.audioContext.currentTime + 0.2);
-            gainNode.gain.setValueAtTime(0.2, this.audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.2);
-            oscillator.stop(this.audioContext.currentTime + 0.2);
-        }
-        
-        oscillator.start(this.audioContext.currentTime);
+        // So desactivat
     }
 
     vibrate(pattern) {
@@ -283,8 +236,20 @@ class Game {
         flipCardInner.style.transition = 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
         
         document.getElementById('current-player-name').textContent = this.players[this.currentPlayerIndex];
-        document.getElementById('btn-next-player').classList.add('hidden');
-        document.getElementById('btn-start-round').classList.add('hidden');
+        
+        // Assegurar que els botons estan ocults i reiniciats
+        const nextBtn = document.getElementById('btn-next-player');
+        const startBtn = document.getElementById('btn-start-round');
+        
+        if (nextBtn) {
+            nextBtn.classList.add('hidden');
+            nextBtn.style.display = 'none';
+            nextBtn.style.pointerEvents = 'none';
+        }
+        if (startBtn) {
+            startBtn.classList.add('hidden');
+            startBtn.style.display = 'none';
+        }
         
         // Configurar el contingut de la targeta
         const categoryText = document.getElementById('category-text');
@@ -404,7 +369,18 @@ class Game {
                     } else {
                         this.vibrate(50); // Vibració suau
                     }
-                    document.getElementById('btn-next-player').classList.remove('hidden');
+                    // Mostrar botó següent jugador amb millor visibilitat
+                    const nextBtn = document.getElementById('btn-next-player');
+                    if (nextBtn) {
+                        nextBtn.classList.remove('hidden');
+                        nextBtn.style.display = 'block';
+                        nextBtn.style.pointerEvents = 'auto';
+                        nextBtn.style.zIndex = '1000';
+                        // Scroll suau cap al botó
+                        setTimeout(() => {
+                            nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
                 }, 400);
             } else {
                 // Tornar a la posició inicial amb rebot
@@ -445,21 +421,49 @@ class Game {
                     } else {
                         this.vibrate(50);
                     }
-                    document.getElementById('btn-next-player').classList.remove('hidden');
+                    // Mostrar botó següent jugador amb millor visibilitat
+                    const nextBtn = document.getElementById('btn-next-player');
+                    if (nextBtn) {
+                        nextBtn.classList.remove('hidden');
+                        nextBtn.style.display = 'block';
+                        nextBtn.style.pointerEvents = 'auto';
+                        nextBtn.style.zIndex = '1000';
+                        // Scroll suau cap al botó
+                        setTimeout(() => {
+                            nextBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 100);
+                    }
                 }, 400);
             }
         });
     }
 
     nextPlayer() {
+        this.vibrate(50); // Feedback tàctil
         this.currentPlayerIndex++;
         
         if (this.currentPlayerIndex < this.players.length) {
+            // Ocultar botó abans de mostrar següent pantalla
+            const nextBtn = document.getElementById('btn-next-player');
+            if (nextBtn) {
+                nextBtn.classList.add('hidden');
+                nextBtn.style.display = 'none';
+            }
             this.showRevealScreen();
         } else {
             // Tots els jugadors han vist la seva paraula
-            document.getElementById('btn-next-player').classList.add('hidden');
-            document.getElementById('btn-start-round').classList.remove('hidden');
+            const nextBtn = document.getElementById('btn-next-player');
+            const startBtn = document.getElementById('btn-start-round');
+            
+            if (nextBtn) {
+                nextBtn.classList.add('hidden');
+                nextBtn.style.display = 'none';
+            }
+            if (startBtn) {
+                startBtn.classList.remove('hidden');
+                startBtn.style.display = 'block';
+                startBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
     }
 
@@ -557,12 +561,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Actualitzar contador de partides
     game.updateGamesCounter();
     
-    // Actualitzar icona de so
-    const soundIcon = document.getElementById('sound-icon');
-    const soundBtn = document.getElementById('sound-toggle');
-    soundIcon.textContent = game.soundEnabled ? '🔊' : '🔇';
-    soundBtn.classList.toggle('muted', !game.soundEnabled);
+
     
     // Aplicar tema guardat
     game.applyTheme();
+    
+    // Assegurar que els botons funcionin bé al mòbil
+    document.addEventListener('touchstart', (e) => {
+        if (e.target.id === 'btn-next-player' || e.target.id === 'btn-start-round') {
+            e.target.style.transform = 'scale(0.95)';
+        }
+    });
+    
+    document.addEventListener('touchend', (e) => {
+        if (e.target.id === 'btn-next-player' || e.target.id === 'btn-start-round') {
+            e.target.style.transform = 'scale(1)';
+        }
+    });
 });
