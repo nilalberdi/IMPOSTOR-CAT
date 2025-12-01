@@ -6,11 +6,83 @@ class Game {
         this.category = '';
         this.currentPlayerIndex = 0;
         this.cardFlipped = false;
+        this.gamesPlayed = parseInt(localStorage.getItem('gamesPlayed') || '0');
+        this.initAudio();
+    }
+
+    initAudio() {
+        // Crear contexto de audio
+        this.audioContext = null;
+        
+        // Inicializar en el primer toque del usuario
+        document.addEventListener('touchstart', () => {
+            if (!this.audioContext) {
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }, { once: true });
+    }
+
+    playWhoosh() {
+        if (!this.audioContext) return;
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(800, this.audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(200, this.audioContext.currentTime + 0.3);
+        
+        gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
+        
+        oscillator.start(this.audioContext.currentTime);
+        oscillator.stop(this.audioContext.currentTime + 0.3);
+    }
+
+    playRevealSound(isImpostor) {
+        if (!this.audioContext) return;
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        
+        if (isImpostor) {
+            // Sonido dramático para impostor
+            oscillator.frequency.setValueAtTime(400, this.audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(100, this.audioContext.currentTime + 0.5);
+            gainNode.gain.setValueAtTime(0.4, this.audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5);
+            oscillator.stop(this.audioContext.currentTime + 0.5);
+        } else {
+            // Sonido suave para jugador normal
+            oscillator.frequency.setValueAtTime(600, this.audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(800, this.audioContext.currentTime + 0.2);
+            gainNode.gain.setValueAtTime(0.2, this.audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.2);
+            oscillator.stop(this.audioContext.currentTime + 0.2);
+        }
+        
+        oscillator.start(this.audioContext.currentTime);
+    }
+
+    vibrate(pattern) {
+        if ('vibrate' in navigator) {
+            navigator.vibrate(pattern);
+        }
     }
 
     goToPlayers() {
+        this.vibrate(30);
         this.showScreen('screen-players');
         document.getElementById('player-input').focus();
+    }
+
+    updateGamesCounter() {
+        document.getElementById('games-count').textContent = this.gamesPlayed;
     }
 
     addPlayer() {
@@ -21,6 +93,7 @@ class Game {
         
         if (this.players.includes(name)) {
             alert('Aquest jugador ja existeix!');
+            this.vibrate(100);
             return;
         }
         
@@ -28,6 +101,7 @@ class Game {
         this.updatePlayersList();
         input.value = '';
         input.focus();
+        this.vibrate(30);
         
         if (this.players.length >= 3) {
             document.getElementById('btn-start-game').classList.remove('hidden');
@@ -51,6 +125,7 @@ class Game {
     removePlayer(index) {
         this.players.splice(index, 1);
         this.updatePlayersList();
+        this.vibrate(50);
         
         if (this.players.length < 3) {
             document.getElementById('btn-start-game').classList.add('hidden');
@@ -60,8 +135,11 @@ class Game {
     startGame() {
         if (this.players.length < 3) {
             alert('Necessites almenys 3 jugadors!');
+            this.vibrate(100);
             return;
         }
+        
+        this.vibrate(50);
         
         // Seleccionar impostor aleatori
         this.impostorIndex = Math.floor(Math.random() * this.players.length);
@@ -180,12 +258,23 @@ class Game {
                 this.cardFlipped = true;
                 flipCardInner.style.transform = 'rotateY(180deg)';
                 
+                // Sonido y vibración al revelar
+                this.playWhoosh();
+                const isImpostor = this.currentPlayerIndex === this.impostorIndex;
+                
                 setTimeout(() => {
+                    this.playRevealSound(isImpostor);
+                    if (isImpostor) {
+                        this.vibrate([100, 50, 100, 50, 200]); // Patrón dramático
+                    } else {
+                        this.vibrate(50); // Vibración suave
+                    }
                     document.getElementById('btn-next-player').classList.remove('hidden');
                 }, 400);
             } else {
                 // Volver a la posición inicial con rebote
                 flipCardInner.style.transform = 'rotateY(0deg)';
+                this.vibrate(20); // Feedback de rebote
             }
             
             currentRotation = 0;
@@ -210,7 +299,17 @@ class Game {
                 flipCard.classList.add('flipped');
                 this.cardFlipped = true;
                 
+                // Sonido y vibración
+                this.playWhoosh();
+                const isImpostor = this.currentPlayerIndex === this.impostorIndex;
+                
                 setTimeout(() => {
+                    this.playRevealSound(isImpostor);
+                    if (isImpostor) {
+                        this.vibrate([100, 50, 100, 50, 200]);
+                    } else {
+                        this.vibrate(50);
+                    }
                     document.getElementById('btn-next-player').classList.remove('hidden');
                 }, 400);
             }
@@ -236,7 +335,36 @@ class Game {
     revealResult() {
         document.getElementById('impostor-name').textContent = this.players[this.impostorIndex];
         document.getElementById('secret-word').textContent = this.secretWord;
+        
+        // Incrementar contador de partidas
+        this.gamesPlayed++;
+        localStorage.setItem('gamesPlayed', this.gamesPlayed.toString());
+        
+        // Vibración y sonido de revelación final
+        this.vibrate([200, 100, 200]);
+        
         this.showScreen('screen-result');
+        
+        // Confeti animation
+        this.createConfetti();
+    }
+
+    createConfetti() {
+        const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4CAF50', '#ffd700'];
+        const confettiCount = 50;
+        
+        for (let i = 0; i < confettiCount; i++) {
+            setTimeout(() => {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 3000);
+            }, i * 30);
+        }
     }
 
     playAgain() {
@@ -253,14 +381,24 @@ class Game {
         this.cardFlipped = false;
         document.getElementById('players-list').innerHTML = '';
         document.getElementById('btn-start-game').classList.add('hidden');
+        this.updateGamesCounter();
         this.showScreen('screen-home');
     }
 
     showScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.remove('active');
-        });
-        document.getElementById(screenId).classList.add('active');
+        const currentScreen = document.querySelector('.screen.active');
+        const nextScreen = document.getElementById(screenId);
+        
+        if (currentScreen) {
+            currentScreen.style.animation = 'fadeOut 0.3s ease-out';
+            setTimeout(() => {
+                currentScreen.classList.remove('active');
+                currentScreen.style.animation = '';
+                nextScreen.classList.add('active');
+            }, 300);
+        } else {
+            nextScreen.classList.add('active');
+        }
     }
 }
 
@@ -276,4 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    
+    // Actualitzar contador de partides
+    game.updateGamesCounter();
 });

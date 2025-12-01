@@ -23,10 +23,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-icon">🎭</div>
+            <h1 class="splash-title">El Impostor</h1>
+            <div class="splash-loader"></div>
+        </div>
+    </div>
+
+    <!-- Particles Background -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div id="app"></div>
         <!-- Pantalla d'inici -->
         <div id="screen-home" class="screen active">
             <h1 class="title">El Impostor</h1>
+            <p class="games-counter">Partides jugades: <span id="games-count">0</span></p>
             <button class="btn-primary" onclick="game.goToPlayers()">Empezar partida</button>
         </div>
 
@@ -94,13 +116,21 @@
     <script src="words.js"></script>
     <script src="game.js"></script>
     <script>
+        // Splash screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('splash-screen').style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
         // Registrar Service Worker per a PWA
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Service Worker registrat'))
-                    .catch(err => console.log('Error al registrar SW:', err));
-            });
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('Service Worker registrat'))
+                .catch(err => console.log('Error al registrar SW:', err));
         }
     </script>
 </body>
