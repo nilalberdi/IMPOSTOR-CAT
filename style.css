@@ -13,14 +13,21 @@ body {
     justify-content: center;
     align-items: center;
     color: #fff;
-    overflow-x: hidden;
+    overflow: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
     position: fixed;
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
     overscroll-behavior: none;
+}
+
+body.light-mode {
+    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    color: #333;
 }
 
 html {
@@ -204,14 +211,153 @@ html {
     z-index: 1;
 }
 
+/* Mode Selection */
+.mode-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.mode-card {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.mode-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.mode-card:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+.mode-card.hardcore {
+    background: linear-gradient(135deg, rgba(255, 82, 82, 0.3) 0%, rgba(238, 90, 111, 0.3) 100%);
+}
+
+.mode-card.hardcore:hover {
+    box-shadow: 0 10px 30px rgba(255, 82, 82, 0.4);
+}
+
+.mode-card.crazy {
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.3) 0%, rgba(245, 87, 108, 0.3) 100%);
+}
+
+.mode-card.crazy:hover {
+    box-shadow: 0 10px 30px rgba(240, 147, 251, 0.4);
+}
+
+.mode-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.mode-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.mode-card p {
+    font-size: 1rem;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* Configuració */
+.settings-container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.setting-item {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting-item label {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.setting-item select {
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.toggle-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:active {
+    transform: scale(0.95);
+}
+
+/* Mode clar */
+body.light-mode .sound-toggle {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+body.light-mode .settings-container,
+body.light-mode .timer-display,
+body.light-mode .instructions {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .flip-card-front {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+}
+
+body.light-mode .flip-card-back {
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.2) 0%, rgba(245, 87, 108, 0.2) 100%);
+}
+
 #app {
     width: 100%;
+    height: 100%;
     max-width: 500px;
     padding: 20px;
-    padding-top: max(20px, env(safe-area-inset-top));
+    padding-top: max(60px, env(safe-area-inset-top));
     padding-bottom: max(20px, env(safe-area-inset-bottom));
     padding-left: max(20px, env(safe-area-inset-left));
     padding-right: max(20px, env(safe-area-inset-right));
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .screen {
@@ -220,7 +366,41 @@ html {
 }
 
 .screen.active {
-    display: block;
+    display: flex;
+}
+
+/* Botó de so */
+.sound-toggle {
+    position: fixed;
+    top: max(15px, env(safe-area-inset-top));
+    right: max(15px, env(safe-area-inset-right));
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sound-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}
+
+.sound-toggle:active {
+    transform: scale(0.95);
+}
+
+.sound-toggle.muted {
+    opacity: 0.5;
 }
 
 @keyframes fadeIn {

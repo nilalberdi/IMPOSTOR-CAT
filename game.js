@@ -2,12 +2,19 @@ class Game {
     constructor() {
         this.players = [];
         this.impostorIndex = -1;
+        this.impostorIndices = [];
         this.secretWord = '';
+        this.impostorWord = ''; // Per mode boig
         this.category = '';
         this.currentPlayerIndex = 0;
         this.cardFlipped = false;
         this.gamesPlayed = parseInt(localStorage.getItem('gamesPlayed') || '0');
+        this.soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
+        this.impostorCount = parseInt(localStorage.getItem('impostorCount') || '1');
+        this.darkMode = localStorage.getItem('darkMode') !== 'false';
+        this.gameMode = 'normal'; // normal, hardcore, crazy
         this.initAudio();
+        this.applyDarkMode();
     }
 
     initAudio() {
@@ -22,8 +29,63 @@ class Game {
         }, { once: true });
     }
 
+    toggleSound() {
+        this.soundEnabled = !this.soundEnabled;
+        localStorage.setItem('soundEnabled', this.soundEnabled.toString());
+        const icon = document.getElementById('sound-icon');
+        const btn = document.getElementById('sound-toggle');
+        icon.textContent = this.soundEnabled ? '🔊' : '🔇';
+        btn.classList.toggle('muted', !this.soundEnabled);
+        this.vibrate(30);
+    }
+
+    showModeSelect() {
+        this.vibrate(30);
+        this.showScreen('screen-mode-select');
+    }
+
+    selectMode(mode) {
+        this.gameMode = mode;
+        this.vibrate(50);
+        this.goToPlayers();
+    }
+
+    showSettings() {
+        this.vibrate(30);
+        this.showScreen('screen-settings');
+        document.getElementById('impostor-count').value = this.impostorCount.toString();
+    }
+
+    backToHome() {
+        this.vibrate(30);
+        this.showScreen('screen-home');
+    }
+
+    updateImpostorCount() {
+        this.impostorCount = parseInt(document.getElementById('impostor-count').value);
+        localStorage.setItem('impostorCount', this.impostorCount.toString());
+        this.vibrate(30);
+    }
+
+    toggleDarkMode() {
+        this.darkMode = !this.darkMode;
+        localStorage.setItem('darkMode', this.darkMode.toString());
+        this.applyDarkMode();
+        this.vibrate(30);
+    }
+
+    applyDarkMode() {
+        if (this.darkMode) {
+            document.body.classList.remove('light-mode');
+            document.getElementById('dark-mode-text').textContent = 'Activat';
+        } else {
+            document.body.classList.add('light-mode');
+            document.getElementById('dark-mode-text').textContent = 'Desactivat';
+        }
+    }
+
     playWhoosh() {
-        if (!this.audioContext) return;
+        if (!this.audioContext || !this.soundEnabled) return;
         
         const oscillator = this.audioContext.createOscillator();
         const gainNode = this.audioContext.createGain();
@@ -42,7 +104,7 @@ class Game {
     }
 
     playRevealSound(isImpostor) {
-        if (!this.audioContext) return;
+        if (!this.audioContext || !this.soundEnabled) return;
         
         const oscillator = this.audioContext.createOscillator();
         const gainNode = this.audioContext.createGain();
@@ -133,22 +195,39 @@ class Game {
     }
 
     startGame() {
-        if (this.players.length < 3) {
-            alert('Necessites almenys 3 jugadors!');
+        const minPlayers = this.impostorCount + 2;
+        if (this.players.length < minPlayers) {
+            alert(`Necessites almenys ${minPlayers} jugadors per ${this.impostorCount} impostor(s)!`);
             this.vibrate(100);
             return;
         }
         
         this.vibrate(50);
         
-        // Seleccionar impostor aleatori
-        this.impostorIndex = Math.floor(Math.random() * this.players.length);
+        // Seleccionar impostors aleatoris
+        this.impostorIndices = [];
+        const availableIndices = [...Array(this.players.length).keys()];
+        
+        for (let i = 0; i < this.impostorCount; i++) {
+            const randomIndex = Math.floor(Math.random() * availableIndices.length);
+            this.impostorIndices.push(availableIndices[randomIndex]);
+            availableIndices.splice(randomIndex, 1);
+        }
+        
+        // Mantenir compatibilitat amb impostorIndex
+        this.impostorIndex = this.impostorIndices[0];
         
         // Seleccionar categoria i paraula secreta aleatòria
         const categories = Object.keys(WORDS);
         this.category = categories[Math.floor(Math.random() * categories.length)];
         const wordsInCategory = WORDS[this.category];
         this.secretWord = wordsInCategory[Math.floor(Math.random() * wordsInCategory.length)];
+        
+        // Mode boig: seleccionar una paraula diferent per l'impostor
+        if (this.gameMode === 'crazy') {
+            const otherWords = wordsInCategory.filter(w => w !== this.secretWord);
+            this.impostorWord = otherWords[Math.floor(Math.random() * otherWords.length)];
+        }
         
         // Començar reparto
         this.currentPlayerIndex = 0;
@@ -180,14 +259,39 @@ class Game {
         const categoryText = document.getElementById('category-text');
         const wordText = document.getElementById('word-text');
         
-        categoryText.textContent = this.category;
+        const isImpostor = this.impostorIndices.includes(this.currentPlayerIndex);
         
-        if (this.currentPlayerIndex === this.impostorIndex) {
-            wordText.innerHTML = "🎭<br><br>Ets l'impostor!<br><br>No saps la paraula";
-            wordText.style.color = '#ff5252';
-        } else {
-            wordText.textContent = this.secretWord;
-            wordText.style.color = '#fff';
+        if (this.gameMode === 'normal') {
+            // Mode normal: impostor veu categoria
+            categoryText.textContent = this.category;
+            if (isImpostor) {
+                wordText.innerHTML = "🎭<br><br>Ets l'impostor!<br><br>No saps la paraula";
+                wordText.style.color = '#ff5252';
+            } else {
+                wordText.textContent = this.secretWord;
+                wordText.style.color = '#fff';
+            }
+        } else if (this.gameMode === 'hardcore') {
+            // Mode hardcore: impostor NO veu categoria
+            if (isImpostor) {
+                categoryText.textContent = '???';
+                wordText.innerHTML = "💀<br><br>Ets l'impostor!<br><br>No saps ni la categoria ni la paraula";
+                wordText.style.color = '#ff5252';
+            } else {
+                categoryText.textContent = this.category;
+                wordText.textContent = this.secretWord;
+                wordText.style.color = '#fff';
+            }
+        } else if (this.gameMode === 'crazy') {
+            // Mode boig: impostor no sap que és impostor i té paraula diferent
+            categoryText.textContent = this.category;
+            if (isImpostor) {
+                wordText.textContent = this.impostorWord;
+                wordText.style.color = '#ff5252';
+            } else {
+                wordText.textContent = this.secretWord;
+                wordText.style.color = '#fff';
+            }
         }
         
         // Afegir event listener per girar la targeta
@@ -260,7 +364,7 @@ class Game {
                 
                 // Sonido y vibración al revelar
                 this.playWhoosh();
-                const isImpostor = this.currentPlayerIndex === this.impostorIndex;
+                const isImpostor = this.impostorIndices.includes(this.currentPlayerIndex);
                 
                 setTimeout(() => {
                     this.playRevealSound(isImpostor);
@@ -301,7 +405,7 @@ class Game {
                 
                 // Sonido y vibración
                 this.playWhoosh();
-                const isImpostor = this.currentPlayerIndex === this.impostorIndex;
+                const isImpostor = this.impostorIndices.includes(this.currentPlayerIndex);
                 
                 setTimeout(() => {
                     this.playRevealSound(isImpostor);
@@ -333,7 +437,9 @@ class Game {
     }
 
     revealResult() {
-        document.getElementById('impostor-name').textContent = this.players[this.impostorIndex];
+        // Mostrar tots els impostors
+        const impostorNames = this.impostorIndices.map(i => this.players[i]).join(', ');
+        document.getElementById('impostor-name').textContent = impostorNames;
         document.getElementById('secret-word').textContent = this.secretWord;
         
         // Incrementar contador de partidas
@@ -375,7 +481,9 @@ class Game {
     exit() {
         this.players = [];
         this.impostorIndex = -1;
+        this.impostorIndices = [];
         this.secretWord = '';
+        this.impostorWord = '';
         this.category = '';
         this.currentPlayerIndex = 0;
         this.cardFlipped = false;
@@ -417,4 +525,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Actualitzar contador de partides
     game.updateGamesCounter();
+    
+    // Actualitzar icona de so
+    const soundIcon = document.getElementById('sound-icon');
+    const soundBtn = document.getElementById('sound-toggle');
+    soundIcon.textContent = game.soundEnabled ? '🔊' : '🔇';
+    soundBtn.classList.toggle('muted', !game.soundEnabled);
 });

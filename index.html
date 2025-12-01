@@ -44,12 +44,66 @@
         <div class="particle"></div>
     </div>
 
+    <!-- Botó de so -->
+    <button id="sound-toggle" class="sound-toggle" onclick="game.toggleSound()">
+        <span id="sound-icon">🔊</span>
+    </button>
+
     <div id="app">
         <!-- Pantalla d'inici -->
         <div id="screen-home" class="screen active">
             <h1 class="title">El Impostor</h1>
             <p class="games-counter">Partides jugades: <span id="games-count">0</span></p>
-            <button class="btn-primary" onclick="game.goToPlayers()">Empezar partida</button>
+            <button class="btn-primary" onclick="game.showModeSelect()">Empezar partida</button>
+            <button class="btn-secondary" onclick="game.showSettings()">⚙️ Configuració</button>
+        </div>
+
+        <!-- Pantalla de selecció de mode -->
+        <div id="screen-mode-select" class="screen">
+            <h2>Tria el mode de joc</h2>
+            <div class="mode-container">
+                <div class="mode-card" onclick="game.selectMode('normal')">
+                    <div class="mode-icon">🎭</div>
+                    <h3>Normal</h3>
+                    <p>L'impostor sap la categoria però no la paraula</p>
+                </div>
+                
+                <div class="mode-card hardcore" onclick="game.selectMode('hardcore')">
+                    <div class="mode-icon">💀</div>
+                    <h3>Hardcore</h3>
+                    <p>L'impostor NO sap ni la categoria ni la paraula</p>
+                </div>
+                
+                <div class="mode-card crazy" onclick="game.selectMode('crazy')">
+                    <div class="mode-icon">🤪</div>
+                    <h3>Boig</h3>
+                    <p>L'impostor no sap que és impostor i té una paraula diferent</p>
+                </div>
+            </div>
+            <button class="btn-secondary" onclick="game.backToHome()">Tornar</button>
+        </div>
+
+        <!-- Pantalla de configuració -->
+        <div id="screen-settings" class="screen">
+            <h2>Configuració</h2>
+            <div class="settings-container">
+                <div class="setting-item">
+                    <label>Nombre d'impostors:</label>
+                    <select id="impostor-count" onchange="game.updateImpostorCount()">
+                        <option value="1" selected>1 impostor</option>
+                        <option value="2">2 impostors</option>
+                        <option value="3">3 impostors</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label>Mode fosc:</label>
+                    <button class="toggle-btn" id="dark-mode-toggle" onclick="game.toggleDarkMode()">
+                        <span id="dark-mode-text">Activat</span>
+                    </button>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="game.backToHome()">Tornar</button>
         </div>
 
         <!-- Pantalla de jugadors -->
