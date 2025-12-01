@@ -220,7 +220,7 @@ html {
 
 #app {
     position: relative;
-    z-index: 1;
+    z-index: 10;
 }
 
 /* Mode Selection */
@@ -476,8 +476,10 @@ body.ninja-mode .title {
 
 body.ninja-mode .title::before {
     content: '忍者 ';
-    font-size: 0.6em;
+    font-size: 0.5em;
     opacity: 0.7;
+    display: block;
+    margin-bottom: 10px;
 }
 
 body.ninja-mode h2 {
@@ -503,6 +505,7 @@ body.ninja-mode .btn-primary {
 
 body.ninja-mode .btn-primary::before {
     content: '⚔️ ';
+    margin-right: 8px;
 }
 
 body.ninja-mode .btn-primary:hover {
@@ -560,6 +563,9 @@ body.ninja-mode .card-icon {
 body.ninja-mode .flip-card-front p::before {
     content: '秘密 ';
     opacity: 0.7;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.8em;
 }
 
 body.ninja-mode .category-text {
@@ -567,15 +573,22 @@ body.ninja-mode .category-text {
     text-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
 }
 
+body.ninja-mode .category-label {
+    display: none;
+}
+
 body.ninja-mode .category-text::before {
     content: '種類: ';
-    font-size: 0.8em;
+    font-size: 0.7em;
     opacity: 0.7;
+    display: block;
+    margin-bottom: 5px;
 }
 
 body.ninja-mode .word-text {
     color: #fff;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 2px 2px 0 #000;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 2px 2px 4px #000;
+    font-weight: 800;
 }
 
 body.ninja-mode #current-player-name {
@@ -619,6 +632,8 @@ body.ninja-mode .instructions {
 body.ninja-mode .instructions::before {
     content: '指示: ';
     font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
 }
 
 body.ninja-mode .result-card {
@@ -654,28 +669,44 @@ body.christmas-mode {
     background-attachment: fixed;
 }
 
-/* Neu que cau */
+/* Neu realista que cau */
 body.christmas-mode::before {
-    content: '❄️ ❄️ ❄️ ❄️ ❄️ ❄️ ❄️ ❄️ ❄️ ❄️';
+    content: '';
     position: fixed;
-    top: -10%;
+    top: 0;
     left: 0;
     width: 100%;
-    font-size: 2rem;
-    color: white;
-    opacity: 0.7;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle, white 1px, transparent 1px),
+        radial-gradient(circle, white 1px, transparent 1px),
+        radial-gradient(circle, white 2px, transparent 2px),
+        radial-gradient(circle, white 1px, transparent 1px),
+        radial-gradient(circle, white 2px, transparent 2px);
+    background-size: 
+        100px 100px,
+        150px 150px,
+        200px 200px,
+        250px 250px,
+        300px 300px;
+    background-position: 
+        0 0,
+        40px 60px,
+        80px 20px,
+        120px 80px,
+        160px 40px;
     pointer-events: none;
     z-index: 1;
-    animation: snowFall 10s linear infinite;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    animation: snowFall 20s linear infinite;
+    opacity: 0.8;
 }
 
 @keyframes snowFall {
     0% {
-        transform: translateY(-10vh) translateX(0);
+        transform: translateY(0);
     }
     100% {
-        transform: translateY(110vh) translateX(50px);
+        transform: translateY(100vh);
     }
 }
 
@@ -686,7 +717,7 @@ body.christmas-mode::after {
     top: 0;
     left: 0;
     width: 100%;
-    height: 20px;
+    height: 15px;
     background: 
         repeating-linear-gradient(
             90deg,
@@ -700,9 +731,9 @@ body.christmas-mode::after {
             #0000ff 80px
         );
     pointer-events: none;
-    z-index: 1000;
+    z-index: 9999;
     animation: christmasLights 2s linear infinite;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.5);
 }
 
 @keyframes christmasLights {
@@ -740,10 +771,12 @@ body.christmas-mode .title {
 
 body.christmas-mode .title::before {
     content: '🎄 ';
+    margin-right: 10px;
 }
 
 body.christmas-mode .title::after {
     content: ' 🎅';
+    margin-left: 10px;
 }
 
 body.christmas-mode h2 {
@@ -773,6 +806,7 @@ body.christmas-mode .btn-primary {
 
 body.christmas-mode .btn-primary::before {
     content: '🎁 ';
+    margin-right: 8px;
 }
 
 body.christmas-mode .btn-secondary {
@@ -783,6 +817,7 @@ body.christmas-mode .btn-secondary {
 
 body.christmas-mode .btn-secondary::before {
     content: '⭐ ';
+    margin-right: 8px;
 }
 
 body.christmas-mode .mode-card {
@@ -814,12 +849,12 @@ body.christmas-mode .flip-card-back {
 
 body.christmas-mode .category-text {
     color: #ffd700;
-    text-shadow: 0 0 15px #ffd700;
+    text-shadow: 0 0 15px #ffd700, 2px 2px 0 #000;
 }
 
 body.christmas-mode .word-text {
     color: #fff;
-    text-shadow: 0 0 20px #ff0000, 0 0 40px #00ff00;
+    text-shadow: 0 0 20px #ff0000, 0 0 40px #00ff00, 2px 2px 0 #000;
 }
 
 body.christmas-mode .result-impostor {
@@ -836,6 +871,31 @@ body.christmas-mode .particle {
     background: #fff;
     box-shadow: 0 0 10px #fff;
     border-radius: 50%;
+    width: 8px;
+    height: 8px;
+}
+
+/* Més neu decorativa */
+body.christmas-mode .particles::after {
+    content: '❄️ ❄️ ❄️ ❄️ ❄️';
+    position: fixed;
+    top: 20%;
+    left: 0;
+    width: 100%;
+    font-size: 3rem;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 2;
+    animation: snowFloat 25s linear infinite;
+}
+
+@keyframes snowFloat {
+    0% {
+        transform: translateX(-10%) rotate(0deg);
+    }
+    100% {
+        transform: translateX(110%) rotate(360deg);
+    }
 }
 
 body.christmas-mode .games-counter span {
@@ -851,30 +911,32 @@ body.hacker-mode {
     font-family: 'Courier New', 'Consolas', monospace;
 }
 
-/* Efecte Matrix */
+/* Efecte Matrix realista */
 body.hacker-mode::before {
-    content: '01010101 11001100 10101010 01110111 00110011 11110000 10011001 01010101 11001100 10101010';
+    content: '0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1';
     position: fixed;
-    top: 0;
+    top: -100%;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 200%;
     color: #00ff00;
-    opacity: 0.1;
-    font-size: 0.8rem;
-    line-height: 1.5;
-    word-wrap: break-word;
+    opacity: 0.15;
+    font-size: 1.2rem;
+    font-family: 'Courier New', monospace;
+    line-height: 1.8;
+    word-spacing: 10px;
     pointer-events: none;
     z-index: 1;
-    animation: matrixRain 20s linear infinite;
+    animation: matrixRain 15s linear infinite;
+    text-shadow: 0 0 5px #00ff00;
 }
 
 @keyframes matrixRain {
     0% {
-        transform: translateY(-100%);
+        transform: translateY(0);
     }
     100% {
-        transform: translateY(100%);
+        transform: translateY(50%);
     }
 }
 
@@ -941,6 +1003,7 @@ body.hacker-mode .title {
 body.hacker-mode .title::before {
     content: '> ';
     animation: blink 1s step-end infinite;
+    margin-right: 10px;
 }
 
 @keyframes blink {
@@ -963,18 +1026,21 @@ body.hacker-mode h2::before {
 }
 
 body.hacker-mode .btn-primary {
-    background: linear-gradient(135deg, #003300 0%, #001100 100%);
+    background: linear-gradient(135deg, #003300 0%, #001a00 100%);
     box-shadow: 
-        0 8px 25px rgba(0, 255, 0, 0.4),
-        inset 0 0 20px rgba(0, 255, 0, 0.1);
+        0 8px 25px rgba(0, 255, 0, 0.5),
+        inset 0 0 20px rgba(0, 255, 0, 0.15),
+        0 0 40px rgba(0, 255, 0, 0.2);
     border: 2px solid #00ff00;
     color: #00ff00;
-    text-shadow: 0 0 10px #00ff00;
+    text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
     font-family: 'Courier New', monospace;
+    font-weight: 700;
 }
 
 body.hacker-mode .btn-primary::before {
     content: '[EXEC] ';
+    margin-right: 8px;
 }
 
 body.hacker-mode .btn-primary:hover {
@@ -1003,6 +1069,7 @@ body.hacker-mode .btn-secondary {
 
 body.hacker-mode .btn-secondary::before {
     content: '[RUN] ';
+    margin-right: 8px;
 }
 
 body.hacker-mode .mode-card {
@@ -1028,6 +1095,7 @@ body.hacker-mode .mode-card h3 {
 
 body.hacker-mode .mode-card h3::before {
     content: '// ';
+    margin-right: 8px;
 }
 
 body.hacker-mode .flip-card-front {
@@ -1048,6 +1116,9 @@ body.hacker-mode .flip-card-back {
 
 body.hacker-mode .flip-card-front p::before {
     content: '[ENCRYPTED] ';
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.7em;
 }
 
 body.hacker-mode .category-text {
@@ -1056,14 +1127,23 @@ body.hacker-mode .category-text {
     font-family: 'Courier New', monospace;
 }
 
+body.hacker-mode .category-label {
+    display: none;
+}
+
 body.hacker-mode .category-text::before {
     content: 'TYPE: ';
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.7em;
 }
 
 body.hacker-mode .word-text {
     color: #00ff00;
-    text-shadow: 0 0 15px #00ff00;
+    text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
     font-family: 'Courier New', monospace;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
 body.hacker-mode #current-player-name {
@@ -1078,6 +1158,9 @@ body.hacker-mode #current-player-name {
 body.hacker-mode #current-player-name::before {
     content: 'USER: ';
     -webkit-text-fill-color: #00ff00;
+    display: block;
+    font-size: 0.6em;
+    margin-bottom: 5px;
 }
 
 body.hacker-mode .games-counter span {
@@ -1116,6 +1199,8 @@ body.hacker-mode .instructions::before {
     content: '// INSTRUCTIONS: ';
     color: #00ff00;
     font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
 }
 
 body.hacker-mode .result-card {
@@ -1147,6 +1232,10 @@ body.hacker-mode .particle {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+}
+
+body.christmas-mode #app {
+    padding-top: max(85px, env(safe-area-inset-top) + 65px);
 }
 
 .screen {
