@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>El Impostor</title>
+    
+    <!-- iOS Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="El Impostor">
+    <meta name="theme-color" content="#0f2027">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icon-192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="icon-192.png">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Pantalla d'inici -->
+        <div id="screen-home" class="screen active">
+            <h1 class="title">El Impostor</h1>
+            <button class="btn-primary" onclick="game.goToPlayers()">Empezar partida</button>
+        </div>
+
+        <!-- Pantalla de jugadors -->
+        <div id="screen-players" class="screen">
+            <h2>Afegeix jugadors</h2>
+            <div class="input-group">
+                <input type="text" id="player-input" placeholder="Nom del jugador" maxlength="20">
+                <button class="btn-secondary" onclick="game.addPlayer()">Afegir</button>
+            </div>
+            <ul id="players-list"></ul>
+            <button id="btn-start-game" class="btn-primary hidden" onclick="game.startGame()">Iniciar partida</button>
+        </div>
+
+        <!-- Pantalla de reparto -->
+        <div id="screen-reveal" class="screen">
+            <div id="reveal-content">
+                <h2 id="current-player-name"></h2>
+                <p class="reveal-instruction">Toca la targeta per revelar</p>
+                
+                <div class="card-container">
+                    <div class="flip-card" id="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <div class="card-icon">🎭</div>
+                                <p>Toca per veure</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="category-label">Categoria:</p>
+                                <p id="category-text" class="category-text"></p>
+                                <p id="word-text" class="word-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="btn-next-player" class="btn-secondary hidden" onclick="game.nextPlayer()">Següent jugador</button>
+            </div>
+            <button id="btn-start-round" class="btn-primary hidden" onclick="game.startRound()">Començar ronda</button>
+        </div>
+
+        <!-- Pantalla de ronda -->
+        <div id="screen-round" class="screen">
+            <h2>Doneu les vostres pistes</h2>
+            <p class="instructions">Parleu, discutiu i voteu qui creieu que és l'impostor.</p>
+            <button class="btn-primary" onclick="game.revealResult()">Revelar resultat</button>
+        </div>
+
+        <!-- Pantalla de resultat -->
+        <div id="screen-result" class="screen">
+            <h2>Resultat</h2>
+            <div class="result-card">
+                <p class="result-label">L'impostor era:</p>
+                <p id="impostor-name" class="result-impostor"></p>
+                <p class="result-label">La paraula secreta era:</p>
+                <p id="secret-word" class="result-word"></p>
+            </div>
+            <div class="btn-group">
+                <button class="btn-primary" onclick="game.playAgain()">Jugar altra vegada</button>
+                <button class="btn-secondary" onclick="game.exit()">Sortir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="words.js"></script>
+    <script src="game.js"></script>
+    <script>
+        // Registrar Service Worker per a PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registrat'))
+                    .catch(err => console.log('Error al registrar SW:', err));
+            });
+        }
+    </script>
+</body>
+</html>
